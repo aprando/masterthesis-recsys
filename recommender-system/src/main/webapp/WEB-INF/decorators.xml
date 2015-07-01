@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators" >
+	<decorator name="interno" page="principal.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<excludes>
+   		<pattern>/index.jsp</pattern>
+		<pattern>/formulario/</pattern>
+		<pattern>/formulario-dissertacao-bootstrap.jsp</pattern>
+		<pattern>/login-facebook.jsp</pattern>
+		<pattern>/privacy-policy.jsp</pattern>
+		<pattern>/admin/usuarios/detalhar-dados-facebook?id=1</pattern>
+   	</excludes>
+</decorators>

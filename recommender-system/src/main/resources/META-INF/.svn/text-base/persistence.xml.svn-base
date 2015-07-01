@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	
+	<persistence-unit name="PTM_CoreUsuarioPerfil" transaction-type="JTA">
+	
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>jdbc/TMPTMDS</jta-data-source>
+		
+		<properties>
+			<!-- Habilitando o print do sql na log do servidor   -->
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.format_sql" value="false"/>
+			
+			<!-- Configurando Second Level Cache -->
+ 			<property name="hibernate.cache.use_second_level_cache" value="false" />
+ 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
+			<property name="net.sf.ehcache.configurationResourceName" value="/META-INF/ehcache.xml" />
+			<property name="hibernate.cache.region_prefix" value="" />
+ 			 
+ 			<!-- Habilitando Query Cache -->
+ 			<property name="hibernate.cache.use_query_cache" value="false" />
+ 			
+ 			 <!-- Gerando estatisticas -->
+ 			<property name="hibernate.generate_statistics" value="false" />
+ 			<property name="hibernate.cache.use_structured_entries" value="false" />
+
+			<!-- 
+				Configurando quantidade de consultas realizadas nos relacionamentos 
+				 one-to-many e many-to-many (tunning) 
+			-->
+			<!--<property name="hibernate.jdbc.batch_size" value="10" />-->
+		</properties>
+		
+	</persistence-unit>
+	
+</persistence>

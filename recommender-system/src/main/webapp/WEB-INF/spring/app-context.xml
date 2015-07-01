@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task-3.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+
+	<context:component-scan base-package="br.com.aprando.recommendersystem" annotation-config="true"/>
+	<context:annotation-config />
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+    
+	<!-- Imports resources configurations -->
+	<beans:import resource="controllers.xml" />
+
+	<!-- Mongo configurations -->
+	<mongo:mongo host="localhost" port="27017" />
+	<mongo:db-factory dbname="recsysdb" />
+ 
+	<bean id="mongoMoxydomainConverter" class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+	        <constructor-arg index="0" ref="mongoDbFactory" />
+	        <constructor-arg index="1">
+	            <bean class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+	        </constructor-arg>
+	        <property name="mapKeyDotReplacement" value="\\+"/>
+	</bean>
+ 
+	<beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<beans:constructor-arg name="mongoConverter" ref="mongoMoxydomainConverter" />
+		<beans:constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</beans:bean>    
+    
+    <!-- LINHAS COMENTADAS: Para deixar de utilizar o datasource do tomcat -->
+	<!-- bean id="dbDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@srvora002a.tokiomarine.com.br:1527:RICD"/>
+		<property name="username" value="ADMRIC"/>
+		<property name="password" value="tokio123"/>
+	</bean-->
+
+	<!-- bean id="dbDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@srvora002a.tokiomarine.com.br:1527:RICA"/>
+		<property name="username" value="APPLRICAUTCONS01"/>
+		<property name="password" value="RICCON5462"/>
+	</bean -->
+	<!-- LINHAS COMENTADAS: Para deixar de utilizar o datasource do tomcat -->
+	
+    <!-- LINHAS COMENTADAS: Para utilizar JDBC TEMPLATE nos servicos  -->
+    <!-- tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+
+	<bean id="dbDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/recsys"/>
+	</bean>    
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dbDataSource"/>
+    </bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dbDataSource"/>
+    </bean-->
+	<!-- LINHAS COMENTADAS: Para utilizar JDBC TEMPLATE nos servicos  -->
+
+	<!-- LINHAS COMENTADAS: Para utilizar JPA  -->
+  	<!-- Add Transaction support -->
+  	<!-- <beans:bean id="txJPAManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <beans:property name="entityManagerFactory" ref="entityManager"/>
+  	</beans:bean>
+    -->
+  	<!-- Use @Transaction annotations for managing transactions -->
+  	<!-- <tx:annotation-driven transaction-manager="txJPAManager" />  -->
+	
+	<!-- Add JPA support -->
+	<!-- <beans:bean id="entityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<beans:property name="persistenceUnitName" value="recsys-pu" />
+	</beans:bean>  -->
+	<!-- LINHAS COMENTADAS: Para utilizar JPA  -->
+
+
+</beans:beans>
