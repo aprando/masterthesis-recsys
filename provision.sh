@@ -17,3 +17,9 @@ echo ' INSTALLING MONGODB'
 echo '----------------------------------------------'
 sudo apt-get update
 sudo apt-get install -y mongodb
+
+echo '----------------------------------------------'
+echo ' INSTALLING TOMCAT'
+echo '----------------------------------------------'
+sudo apt-get update
+sudo apt-get install -y tomcat7
