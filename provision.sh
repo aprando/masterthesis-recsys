@@ -12,7 +12,6 @@ git \
 maven \
 htop 
 
-### To install MongoDB ###
 echo '----------------------------------------------'
 echo ' INSTALLING MONGODB'
 echo '----------------------------------------------'
